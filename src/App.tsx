@@ -1,6 +1,26 @@
+import { useState, useEffect } from "react";
 import { Header, SortingTabs, Posts, UsersList } from "./components";
+import { getPostsWithComments, TPostsWithComment } from "./API";
 
 function App() {
+  const [posts, setPosts] = useState<TPostsWithComment>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    getPostsWithComments()
+      .then((postsWithComments) => {
+        setPosts(postsWithComments);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <div className="relative min-h-screen bg-gray-100">
       {/* <!--
