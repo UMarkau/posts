@@ -1,6 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { Header, SortingTabs, Posts, UsersList } from "./components";
+import {
+  Header,
+  SortingTabs,
+  Posts,
+  UsersList,
+  SortingTabsValues,
+} from "./components";
 import { apiTypes, API } from "./API";
 import { getPostsWithComments } from "./utils";
 import "react-toastify/dist/ReactToastify.css";
@@ -31,6 +37,24 @@ export const App = () => {
     }
   };
 
+  const handleSortPosts = useCallback(
+    (sortCriteria: SortingTabsValues) => {
+      if (sortCriteria === SortingTabsValues.ID) {
+        const updatedPosts = [...posts].sort(
+          (postA, postB) => postA.id - postB.id
+        );
+        setPosts(updatedPosts);
+      }
+      if (sortCriteria === SortingTabsValues.MOST_COMMENTS) {
+        const updatedPosts = [...posts].sort(
+          (postA, postB) => postA.comments.length - postB.comments.length
+        );
+        setPosts(updatedPosts);
+      }
+    },
+    [posts]
+  );
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -46,7 +70,7 @@ export const App = () => {
       <div className="py-10">
         <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
           <main className="lg:col-span-8">
-            <SortingTabs onChange={(val) => {}} />
+            <SortingTabs onSortPosts={handleSortPosts} />
             <Posts posts={posts} onDeletePost={handleDeletePost} />
           </main>
           <UsersList />

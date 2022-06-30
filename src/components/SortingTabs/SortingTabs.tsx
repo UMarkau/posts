@@ -6,12 +6,12 @@ export enum SortingTabsValues {
 }
 
 interface IProps {
-  onChange: (val: SortingTabsValues) => void;
+  onSortPosts: (sortCriteria: SortingTabsValues) => void;
 }
 
-export const SortingTabs = ({ onChange }: IProps) => (
+export const SortingTabs = ({ onSortPosts }: IProps) => (
   <div className="px-4 sm:px-0">
-    <SortingTabsMobile onChange={onChange} />
-    <SortingTabsSM onChange={onChange} />
+    <SortingTabsMobile onSortPosts={onSortPosts} />
+    <SortingTabsSM onSortPosts={onSortPosts} />
   </div>
 );

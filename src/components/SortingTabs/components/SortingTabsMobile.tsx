@@ -3,15 +3,15 @@ import { Listbox } from "@headlessui/react";
 import { SortingTabsValues } from "../SortingTabs";
 
 interface IProps {
-  onChange: (val: SortingTabsValues) => void;
+  onSortPosts: (sortCriteria: SortingTabsValues) => void;
 }
 
-export const SortingTabsMobile = ({ onChange }: IProps) => {
+export const SortingTabsMobile = ({ onSortPosts }: IProps) => {
   const [value, setValue] = useState(SortingTabsValues.ID);
 
   const handleChange = (val: SortingTabsValues) => {
     setValue(val);
-    onChange(val);
+    onSortPosts(val);
   };
 
   return (
