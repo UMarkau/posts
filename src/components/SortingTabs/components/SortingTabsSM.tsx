@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-import { classNames } from "../../../utils";
+import { classNames } from "../../utils";
 import { SortingTabsValues } from "../SortingTabs";
 
 interface ITabComponentProps {

@@ -1,9 +1,12 @@
 import axios from "axios";
-import { Post, Comment } from "./models";
+import { IPost, IComment } from "./types";
 
 const client = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com/",
 });
 
-export const getPosts = () => client.get<Post[]>("posts");
-export const getComments = () => client.get<Comment[]>("comments");
+export const getPosts = () => client.get<IPost[]>("posts");
+export const getComments = () => client.get<IComment[]>("comments");
+
+// No types here because we don't care about response type.
+export const deletePost = (postId: number) => client.delete(`posts/${postId}`);

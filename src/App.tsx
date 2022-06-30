@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import { Header, SortingTabs, Posts, UsersList } from "./components";
-import { getPostsWithComments, TPostsWithComment } from "./API";
+import { apiTypes, API } from "./API";
+import { getPostsWithComments } from "./utils";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  const [posts, setPosts] = useState<TPostsWithComment>([]);
+export const App = () => {
+  const [posts, setPosts] = useState<apiTypes.IPostWithComment[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -16,6 +19,17 @@ function App() {
         setLoading(false);
       });
   }, []);
+
+  const handleDeletePost = async (postId: number) => {
+    try {
+      await API.deletePost(postId);
+      const updatedPosts = [...posts].filter((post) => post.id !== postId);
+      setPosts(updatedPosts);
+      toast.success(`The post with ID ${postId} was successfully deleted`);
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
 
   if (loading) {
     return <h1>Loading...</h1>;
@@ -33,13 +47,12 @@ function App() {
         <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
           <main className="lg:col-span-8">
             <SortingTabs onChange={(val) => {}} />
-            <Posts />
+            <Posts posts={posts} onDeletePost={handleDeletePost} />
           </main>
           <UsersList />
         </div>
+        <ToastContainer />
       </div>
     </div>
   );
-}
-
-export default App;
+};
