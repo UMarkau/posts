@@ -16,3 +16,5 @@ export interface IComment {
 export interface IPostWithComment extends IPost {
   comments: IComment[];
 }
+
+export type TAddPostPayload = Omit<IPost, "id">;

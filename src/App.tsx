@@ -6,6 +6,7 @@ import {
   Posts,
   UsersList,
   SortingTabsValues,
+  AddNewPostSlideover,
 } from "./components";
 import { apiTypes, API } from "./API";
 import { getPostsWithComments } from "./utils";
@@ -14,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 export const App = () => {
   const [posts, setPosts] = useState<apiTypes.IPostWithComment[]>([]);
   const [loading, setLoading] = useState(false);
+  const [isSlideoverOpen, setIsSlideoverOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -41,13 +43,13 @@ export const App = () => {
     (sortCriteria: SortingTabsValues) => {
       if (sortCriteria === SortingTabsValues.ID) {
         const updatedPosts = [...posts].sort(
-          (postA, postB) => postA.id - postB.id
+          (postA, postB) => postB.id - postA.id
         );
         setPosts(updatedPosts);
       }
       if (sortCriteria === SortingTabsValues.MOST_COMMENTS) {
         const updatedPosts = [...posts].sort(
-          (postA, postB) => postA.comments.length - postB.comments.length
+          (postA, postB) => postB.comments.length - postA.comments.length
         );
         setPosts(updatedPosts);
       }
@@ -55,18 +57,40 @@ export const App = () => {
     [posts]
   );
 
+  const handleAddNewPostClick = () => {
+    setIsSlideoverOpen(true);
+  };
+
+  const handleCloseSlideoverClick = () => {
+    setIsSlideoverOpen(false);
+  };
+
+  const handleSubmitNewPost = async (postData: apiTypes.TAddPostPayload) => {
+    try {
+      await API.addPost(postData);
+      const updatedPosts = [
+        ...posts,
+        { ...postData, id: Math.random(), comments: [] },
+      ];
+      setPosts(updatedPosts);
+      toast.success("The post has been added successfully");
+    } catch {
+      toast.error("Something went wrong");
+    }
+  };
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
 
   return (
     <div className="relative min-h-screen bg-gray-100">
-      {/* <!--
-    When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars
-
-    Menu open: "fixed inset-0 z-40 overflow-y-auto", Menu closed: ""
-  --> */}
-      <Header />
+      <Header onAddNewPostClick={handleAddNewPostClick} />
+      <AddNewPostSlideover
+        isSlideoverOpen={isSlideoverOpen}
+        onCloseSlideoverClick={handleCloseSlideoverClick}
+        onSubmitNewPost={handleSubmitNewPost}
+      />
       <div className="py-10">
         <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
           <main className="lg:col-span-8">

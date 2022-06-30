@@ -19,7 +19,8 @@ export const getPostsWithComments = async (): Promise<
         }
       }
     }
-    return posts;
+    // Sort here, because they should be sorted by ID by default.
+    return posts.sort((postA, postB) => postB.id - postA.id);
   } catch {
     throw new Error();
   }
