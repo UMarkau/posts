@@ -23,7 +23,7 @@ export const AddNewPostSlideover = ({
 }: IProps) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [postedBy, setPostedBy] = useState<number | null>(null);
+  const [postedBy, setPostedBy] = useState<number>(0);
 
   const handlePublishPost = () => {
     if (!title || !body || !postedBy) {
@@ -34,8 +34,15 @@ export const AddNewPostSlideover = ({
         body,
         userId: postedBy,
       });
-      onCloseSlideoverClick();
+      handleCloseSlideover();
     }
+  };
+
+  const handleCloseSlideover = () => {
+    setTitle("");
+    setBody("");
+    setPostedBy(0);
+    onCloseSlideoverClick();
   };
 
   return (
@@ -52,7 +59,7 @@ export const AddNewPostSlideover = ({
         </p>
         <button
           className="absolute rounded-md p-2 top-2 right-2"
-          onClick={onCloseSlideoverClick}
+          onClick={handleCloseSlideover}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -74,6 +81,7 @@ export const AddNewPostSlideover = ({
           id="title"
           name="title"
           onChange={(e) => setTitle(e.target.value)}
+          value={title}
           className="border-solid border-gray-300 border-[1px] rounded"
         />
         <label htmlFor="body" className="mt-5">
@@ -82,6 +90,7 @@ export const AddNewPostSlideover = ({
         <textarea
           id="body"
           name="body"
+          value={body}
           onChange={(e) => setBody(e.target.value)}
           className="border-solid border-gray-300 border-[1px] rounded"
         />
@@ -91,10 +100,11 @@ export const AddNewPostSlideover = ({
         <select
           name="posted"
           id="posted"
+          value={postedBy}
           className="border-solid border-gray-300 border-[1px] rounded"
           onChange={(e) => setPostedBy(parseInt(e.target.value))}
         >
-          <option value="" hidden>
+          <option value={0} hidden>
             Select an Option
           </option>
           {postedByOptions.map((opt) => (
@@ -105,7 +115,7 @@ export const AddNewPostSlideover = ({
         </select>
       </form>
       <div className="flex items-center justify-center sm:justify-end font-semibold text-xs px-5 mt-auto h-14 border-t-[1px] border-gray-300">
-        <Button className="mr-2" onClick={onCloseSlideoverClick}>
+        <Button className="mr-2" onClick={handleCloseSlideover}>
           Cancel
         </Button>
         <Button primary onClick={handlePublishPost}>

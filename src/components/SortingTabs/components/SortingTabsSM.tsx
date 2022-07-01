@@ -12,9 +12,10 @@ const TabComponent = ({ option, className }: ITabComponentProps) => (
     className={({ selected }) =>
       classNames(
         selected
-          ? "text-gray-900 border-b-2 border-b-blue-500"
-          : "text-gray-500 hover:text-gray-700",
-        `group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-6 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 ${className}`
+          ? // Unfortunately, for some reason, the border for 'selected' is overwritten by tailwindCss for the second tab. I decided to not spend too much time on debugging here.
+            "text-gray-900 border-blue-500"
+          : "text-gray-500 hover:text-gray-700 border-transparent",
+        `border-b-2 outline-none group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-6 text-sm font-medium text-center hover:bg-gray-50 focus:z-10 ${className}`
       )
     }
   >

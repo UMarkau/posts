@@ -4,7 +4,6 @@ import {
   Header,
   SortingTabs,
   Posts,
-  UsersList,
   SortingTabsValues,
   AddNewPostSlideover,
 } from "./components";
@@ -93,11 +92,10 @@ export const App = () => {
       />
       <div className="py-10">
         <div className="max-w-3xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-12 lg:gap-8">
-          <main className="lg:col-span-8">
+          <main className="lg:col-span-full">
             <SortingTabs onSortPosts={handleSortPosts} />
             <Posts posts={posts} onDeletePost={handleDeletePost} />
           </main>
-          <UsersList />
         </div>
         <ToastContainer />
       </div>
