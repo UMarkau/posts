@@ -2,14 +2,16 @@
 import { Post } from "./components";
 import { apiTypes } from "../../API";
 
-interface IProps {
+export interface IPostsProps {
   posts: apiTypes.IPostWithComment[];
   onDeletePost: (postId: number) => void;
 }
 
-export const Posts = ({ posts, onDeletePost }: IProps) => {
+export const POSTS_TEST_ID = "posts";
+
+export const Posts = ({ posts, onDeletePost }: IPostsProps) => {
   return (
-    <div className="mt-4">
+    <div className="mt-4" data-testid={POSTS_TEST_ID}>
       <h1 className="sr-only">Recent questions</h1>
       <ul className="space-y-4">
         {posts.map((post) => (

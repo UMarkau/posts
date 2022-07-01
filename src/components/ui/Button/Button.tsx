@@ -1,14 +1,19 @@
 import React from "react";
 import { classNames } from "../../utils";
 
-interface IProps {
+export interface IButtonProps {
   children: React.ReactNode;
   onClick: () => void;
   primary?: boolean;
   className?: string;
 }
 
-export const Button = ({ children, onClick, primary, className }: IProps) => {
+export const Button = ({
+  children,
+  onClick,
+  primary,
+  className = "",
+}: IButtonProps) => {
   return (
     <button
       className={classNames(

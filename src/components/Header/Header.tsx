@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-interface IProps {
+interface IHeaderProps {
   onAddNewPostClick: () => void;
 }
 
-export const Header = ({ onAddNewPostClick }: IProps) => {
+export const Header = ({ onAddNewPostClick }: IHeaderProps) => {
   return (
     <header className="bg-white p-3 shadow-sm lg:static lg:overflow-y-visible">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

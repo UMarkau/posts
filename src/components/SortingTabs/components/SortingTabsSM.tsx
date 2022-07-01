@@ -23,11 +23,11 @@ const TabComponent = ({ option, className }: ITabComponentProps) => (
   </Tab>
 );
 
-interface IProps {
+interface ISortingTabsSMProps {
   onSortPosts: (sortCriteria: SortingTabsValues) => void;
 }
 
-export const SortingTabsSM = ({ onSortPosts }: IProps) => {
+export const SortingTabsSM = ({ onSortPosts }: ISortingTabsSMProps) => {
   const handleChange = (index: number) => {
     const options = Object.values(SortingTabsValues);
     onSortPosts(options[index]);

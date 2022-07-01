@@ -2,11 +2,11 @@ import { useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { SortingTabsValues } from "../SortingTabs";
 
-interface IProps {
+interface ISortingTabsMobileProps {
   onSortPosts: (sortCriteria: SortingTabsValues) => void;
 }
 
-export const SortingTabsMobile = ({ onSortPosts }: IProps) => {
+export const SortingTabsMobile = ({ onSortPosts }: ISortingTabsMobileProps) => {
   const [value, setValue] = useState(SortingTabsValues.ID);
 
   const handleChange = (val: SortingTabsValues) => {

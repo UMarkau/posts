@@ -5,12 +5,14 @@ export enum SortingTabsValues {
   MOST_COMMENTS = "Most Comments",
 }
 
-interface IProps {
+export interface ISortingTabsProps {
   onSortPosts: (sortCriteria: SortingTabsValues) => void;
 }
 
-export const SortingTabs = ({ onSortPosts }: IProps) => (
-  <div className="px-4 sm:px-0">
+export const SORTING_TABS_TEST_ID = "sorting-tabs";
+
+export const SortingTabs = ({ onSortPosts }: ISortingTabsProps) => (
+  <div className="px-4 sm:px-0" data-testid={SORTING_TABS_TEST_ID}>
     <SortingTabsMobile onSortPosts={onSortPosts} />
     <SortingTabsSM onSortPosts={onSortPosts} />
   </div>

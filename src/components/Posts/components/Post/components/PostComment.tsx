@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { apiTypes } from "../../../../../API";
 
-interface IProps {
+interface IPostCommentProps {
   comment: apiTypes.IComment;
 }
 
-export const PostComment = ({ comment }: IProps) => (
+export const PostComment = ({ comment }: IPostCommentProps) => (
   <li>
     <div className="flex space-x-3">
       <div className="flex-shrink-0">

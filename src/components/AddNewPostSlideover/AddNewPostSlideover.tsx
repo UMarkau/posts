@@ -4,7 +4,7 @@ import { apiTypes } from "../../API";
 import { classNames } from "../utils";
 import { Button } from "../ui";
 
-interface IProps {
+export interface IAddNewPostSlideoverProps {
   isSlideoverOpen: boolean;
   onCloseSlideoverClick: () => void;
   onSubmitNewPost: (postData: apiTypes.TAddPostPayload) => void;
@@ -16,11 +16,13 @@ const postedByOptions = [
   { name: "Devon Webb", userId: 3 },
 ];
 
+export const ADD_NEW_POST_SLIDEOVER_TEST_ID = "AddNewPostSlideover";
+
 export const AddNewPostSlideover = ({
   isSlideoverOpen,
   onCloseSlideoverClick,
   onSubmitNewPost,
-}: IProps) => {
+}: IAddNewPostSlideoverProps) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [postedBy, setPostedBy] = useState<number>(0);
@@ -51,6 +53,7 @@ export const AddNewPostSlideover = ({
         isSlideoverOpen ? "w-full sm:w-1/3" : "w-0",
         "fixed min-h-screen z-40 overflow-y-auto right-0 inset-y-0 shadow-2xl bg-white flex flex-col"
       )}
+      data-testid={ADD_NEW_POST_SLIDEOVER_TEST_ID}
     >
       <div className="p-5 relative text-white bg-blue-700">
         <h3 className="font-semibold">New Post</h3>

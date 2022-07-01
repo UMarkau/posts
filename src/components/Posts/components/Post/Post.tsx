@@ -4,12 +4,12 @@ import { toast } from "react-toastify";
 import { apiTypes } from "../../../../API";
 import { PostComment } from "./components";
 
-interface IProps {
+interface IPostProps {
   post: apiTypes.IPostWithComment;
   onDeletePost: (postId: number) => void;
 }
 
-export const Post = ({ post, onDeletePost }: IProps) => {
+export const Post = ({ post, onDeletePost }: IPostProps) => {
   const handleCopyId = () => {
     try {
       navigator.clipboard.writeText(`${post.id}`);
